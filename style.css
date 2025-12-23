@@ -133,6 +133,145 @@ nav {
     font-weight: 600;
 }
 
+/* Nav Toggle (Hidden Checkbox) */
+#nav-toggle {
+    display: none;
+}
+
+/* Hamburger Icon */
+.nav-toggle-label {
+    display: none;
+    /* Hidden on desktop */
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 24px;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1001;
+}
+
+.line {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--text);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+/* Responsive Nav */
+/* Responsive Nav - Side Panel */
+@media (max-width: 768px) {
+    nav {
+        padding: 15px 20px;
+        text-align: left;
+    }
+
+    .nav-toggle-label {
+        display: flex;
+        /* Show hamburger */
+        z-index: 1002;
+        /* Ensure it's above the panel */
+        position: fixed;
+        /* Fix to screen so it doesn't scroll away */
+        top: 20px;
+        right: 20px;
+    }
+
+    /* Side Panel Container */
+    .nav-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* Center links vertically */
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 70%;
+        /* Side panel width */
+        max-width: 300px;
+        height: 100vh;
+        background: var(--nav-bg);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        padding: 60px 20px 20px;
+        transform: translateX(100%);
+        /* Hide off-screen right */
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* Smooth slide */
+        z-index: 1000;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+        border-left: 1px solid var(--border-color);
+        margin: 0;
+        /* Override any defaults */
+        gap: 15px;
+    }
+
+    /* When checkbox is checked, slide in */
+    #nav-toggle:checked~.nav-container {
+        transform: translateX(0);
+        opacity: 1;
+        /* Ensure opacity is reset if previously changed */
+    }
+
+    /* Backdrop overlay (Optional visual improvement) */
+    #nav-toggle:checked~.nav-container::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: -100vw;
+        /* Extend well to the left */
+        width: 100vw;
+        /* Full width backdrop */
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: -1;
+        opacity: 0;
+        animation: fadeIn 0.4s forwards;
+        pointer-events: none;
+        /* Let clicks pass through if needed, though usually we want to close */
+    }
+
+    .nav-link {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 15px 20px;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+
+    /* Hamburger Animation to 'X' */
+    #nav-toggle:checked+.nav-toggle-label .line:nth-child(1) {
+        transform: translateY(10.5px) rotate(45deg);
+        background-color: var(--primary);
+        /* Highlight active state */
+    }
+
+    #nav-toggle:checked+.nav-toggle-label .line:nth-child(2) {
+        opacity: 0;
+    }
+
+    #nav-toggle:checked+.nav-toggle-label .line:nth-child(3) {
+        transform: translateY(-10.5px) rotate(-45deg);
+        background-color: var(--primary);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
 /* Header Content */
 .header-container {
     display: flex;
@@ -193,6 +332,7 @@ nav {
 /* Layout */
 .container {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 40px 20px;
     flex: 1;
@@ -212,94 +352,85 @@ nav {
     border-color: var(--text-muted);
 }
 
-/* Typography */
-h2 {
-    font-size: 1.8rem;
-    color: var(--primary);
-    /* Royal Blue */
-    margin-bottom: 25px;
-    position: relative;
-    display: inline-block;
-    font-weight: 600;
-    letter-spacing: -0.01em;
+/* Credentials and Impact Grid */
+.credentials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
 }
 
-/* h2::after {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 3px;
-    background-color: var(--accent);
-    /* Forest Green underline */
-/* margin-top: 10px;
-} */
-
-*/ h3 {
-    font-size: 1.4rem;
-    color: var(--text);
-    margin: 20px 0 15px;
-    font-weight: 600;
-}
-
-p {
-    margin-bottom: 20px;
-    color: var(--text-muted);
-    font-size: 1rem;
-}
-
-ul {
-    padding-left: 20px;
-    margin-bottom: 20px;
-}
-
-li {
-    margin-bottom: 8px;
-    color: var(--text-muted);
-}
-
-li::marker {
-    color: var(--primary);
-}
-
-/* Project Sections */
-.project-section {
-    margin-bottom: 60px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.project-section:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.project-section h3 {
-    border-left: 4px solid var(--primary);
-    padding-left: 15px;
-    color: var(--text);
-}
-
-.project-details {
-    margin-top: 20px;
-}
-
-/* Slideshow */
-.slideshow {
+.cert-card {
+    background: rgba(255, 255, 255, 0.05);
+    /* Glassmorphism base */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    gap: 20px;
-    padding: 10px 0 20px 0;
-    margin: 20px 0;
+    flex-direction: column;
+    height: 100%;
 }
 
-.slideshow img {
+.cert-card:hover {
+    transform: translateY(-10px);
+    /* Lift effect */
+    border-color: rgba(65, 151, 69, 0.5);
+    /* Primary color hint */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cert-header {
+    width: 100%;
     height: 200px;
-    width: auto;
-    flex-shrink: 0;
-    background-color: #010409;
+    overflow: hidden;
+    background-color: #000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cert-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* changed to contain to show full certificates */
+    transition: transform 0.5s ease;
+    border: none;
+    border-radius: 0;
+}
+
+.cert-card:hover .cert-header img {
+    transform: scale(1.05);
+}
+
+.cert-body {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.cert-body h4 {
+    color: var(--text);
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+.cert-body p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    margin-top: auto;
+    /* Push to bottom if needed */
+}
+
+/* Slideshow - Legacy/Backup or reused elsewhere */
+.slideshow {
+    display: none;
+    /* Hidden as we are moving to grid */
 }
 
 /* Buttons */
@@ -439,6 +570,7 @@ footer a {
         padding: 25px;
     }
 }
+
 .experience-card {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.15);
