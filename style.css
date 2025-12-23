@@ -428,9 +428,22 @@ nav {
 }
 
 /* Slideshow - Legacy/Backup or reused elsewhere */
+/* Slideshow */
 .slideshow {
-    display: none;
-    /* Hidden as we are moving to grid */
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding: 10px 0 20px 0;
+    margin: 20px 0;
+}
+
+.slideshow img {
+    height: 200px;
+    width: auto;
+    flex-shrink: 0;
+    background-color: #010409;
 }
 
 /* Buttons */
