@@ -290,7 +290,7 @@ nav {
 
 .header-info h1 {
     margin-bottom: 15px;
-    color: var(--text);
+    color: var(--accent-light);
     font-size: 3rem;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -350,6 +350,53 @@ nav {
 
 .section:hover {
     border-color: var(--text-muted);
+}
+
+/* Typography */
+h2 {
+    font-size: 1.8rem;
+    color: var(--accent-light);
+    /* Green Accent */
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+h3 {
+    font-size: 1.4rem;
+    color: var(--text);
+    margin: 20px 0 15px;
+    font-weight: 600;
+}
+
+/* Specific rule for Project Titles to be Green */
+.project-section h3 {
+    border-left: 4px solid var(--accent-light);
+    padding-left: 15px;
+    color: var(--accent-light);
+}
+
+p {
+    margin-bottom: 20px;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+ul {
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+li {
+    margin-bottom: 8px;
+    color: var(--text-muted);
+}
+
+li::marker {
+    color: var(--accent-light);
+    /* Green bullets */
 }
 
 /* Credentials and Impact Grid */
